@@ -1,1 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'DAY 65 - Infraestrutura de Armazenamento Seguro para Imoveis Palmas'
+
+Resources:
+  # Aqui o codigo cria o seu Bucket do S3 (O Cofre de Arquivos)
+  CofreContratosPalmas:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub 'kalleb-contratos-imoveis-${AWS::AccountId}'
+      
+      # SEGURANÇA 1: Ativa o Versionamento contra exclusao acidental
+      VersioningConfiguration:
+        Status: Enabled
+        
+      # SEGURANÇA 2: Bloqueia 100% do acesso publico de hackers da internet
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+      # ECONOMIA: Regra de Ciclo de Vida Automatica (Lifecycle Policy)
+      LifecycleConfiguration:
+        Rules:
+          - Id: EnviarParaGlacierEmanterCaixaBaixo
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 30
+                StorageClass: GLACIER_HA
 
