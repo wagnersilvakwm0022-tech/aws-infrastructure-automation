@@ -13,4 +13,4 @@ This repository contains an Infrastructure as Code (IaC) template developed with
 * **Cloud Provider:** Amazon Web Services (AWS)
 * **Infrastructure as Code (IaC):** AWS CloudFormation (YAML)
 * **Storage Services:** Amazon S3 & Amazon S3 Glacier
-
+* 
